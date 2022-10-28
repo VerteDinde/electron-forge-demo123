@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2.2.0
         with:
-          node-version: 12.x
+          node-version: 18.x
           cache: yarn
       - name: Install
         run: yarn
@@ -57,7 +57,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2.2.0
         with:
-          node-version: 12.x
+          node-version: 18.x
           cache: yarn
       - name: Bundle app
         uses: electron-forge/bundle-action@main
@@ -104,14 +104,14 @@ jobs:
             platform: darwin
             arch: arm64
             maker: dmg
-          # - os: macOS-latest
-          #   platform: darwin
-          #   arch: x64
-          #   maker: pkg
-          # - os: macOS-latest
-          #   platform: darwin
-          #   arch: arm64
-          #   maker: pkg
+          - os: macOS-latest
+            platform: darwin
+            arch: x64
+            maker: pkg
+          - os: macOS-latest
+            platform: darwin
+            arch: arm64
+            maker: pkg
           - os: macOS-latest
             platform: darwin
             arch: x64
@@ -163,27 +163,11 @@ jobs:
           - os: Ubuntu-latest
             platform: linux
             arch: x64
-            maker: flatpak
-          # - os: Ubuntu-latest
-          #   platform: linux
-          #   arch: arm64
-          #   maker: flatpak
-          - os: Ubuntu-latest
-            platform: linux
-            arch: x64
             maker: rpm
           - os: Ubuntu-latest
             platform: linux
             arch: arm64
             maker: rpm
-          - os: Ubuntu-18.04
-            platform: linux
-            arch: x64
-            maker: snap
-          # - os: Ubuntu-18.04
-          #   platform: linux
-          #   arch: arm64
-          #   maker: snap
     steps:
       - uses: actions/checkout@v2
       - name: Download bundled app artifact
@@ -196,19 +180,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2.2.0
         with:
-          node-version: 12.x
+          node-version: 18.x
           cache: yarn
       - name: Generate distributables
         uses: electron-forge/distributable-action@main
         with:
           macos-cert-importer: ci/codesign/import-testing-cert-ci.sh
-          target-maker: "@electron-forge/maker-${{ matrix.distributable.maker }}"
+          target-maker: '@electron-forge/maker-${{ matrix.distributable.maker }}'
           target-arch: ${{ matrix.distributable.arch }}
           target-platform: ${{ matrix.distributable.platform }}
           windows-cert-filename: ci/codesign.pfx
           windows-cert-importer: ci/setup-windows-certificate.sh
-        env:
-          DEBUG: "electron-installer-snap:snapcraft"
       - name: Save distributable
         uses: actions/upload-artifact@v1
         with:
