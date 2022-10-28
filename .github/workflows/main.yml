@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791 # 2.5.0
+        with:
+          node-version: 18.x
       - name: Setup Node.js
         uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3.5.1
         with:
@@ -54,6 +56,8 @@ jobs:
             arch: arm64
     steps:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791 # 2.5.0
+        with:
+          node-version: 18.x
       - name: Setup Node.js
         uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # v3.5.1
         with:
@@ -104,14 +108,14 @@ jobs:
             platform: darwin
             arch: arm64
             maker: dmg
-          - os: macOS-latest
-            platform: darwin
-            arch: x64
-            maker: pkg
-          - os: macOS-latest
-            platform: darwin
-            arch: arm64
-            maker: pkg
+          # - os: macOS-latest
+          #   platform: darwin
+          #   arch: x64
+          #   maker: pkg
+          # - os: macOS-latest
+          #   platform: darwin
+          #   arch: arm64
+          #   maker: pkg
           - os: macOS-latest
             platform: darwin
             arch: x64
@@ -128,14 +132,14 @@ jobs:
             platform: mas
             arch: arm64
             maker: dmg
-          - os: macOS-latest
-            platform: mas
-            arch: x64
-            maker: pkg
-          - os: macOS-latest
-            platform: mas
-            arch: arm64
-            maker: pkg
+          # - os: macOS-latest
+          #   platform: mas
+          #   arch: x64
+          #   maker: pkg
+          # - os: macOS-latest
+          #   platform: mas
+          #   arch: arm64
+          #   maker: pkg
           - os: macOS-latest
             platform: mas
             arch: x64
@@ -170,6 +174,8 @@ jobs:
             maker: rpm
     steps:
       - uses: actions/checkout@e2f20e631ae6d7dd3b768f56a5d2af784dd54791 # 2.5.0
+        with:
+          node-version: 18.x
       - name: Download bundled app artifact
         uses: actions/download-artifact@v1
         with:
