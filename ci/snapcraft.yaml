@@ -3,15 +3,34 @@ version: '1.0.0'
 summary: App summary
 description: |
   App description
-
+base: core20
+confinement: strict
 grade: devel
-confinement: devmode
+
+apps:
+  electron-app:
+    extensions: [gnome-3-34]
+    plugs:
+      - alsa
+      - browser-support
+      - desktop
+      - desktop-legacy
+      - gsettings
+      - home
+      - network
+      - opengl
+      - pulseaudio
+      - unity7
+      - wayland
+      - x11
+    environment:
+      DISABLE_WAYLAND: "1"
+      TMPDIR: $XDG_RUNTIME_DIR
 
 parts:
-  electron-deps:
-    plugin: nil
-    after:
-    - desktop-gtk3
+  electron-app:
+    source: .
+    plugin: dump
     stage-packages:
     - libnotify4
     - libnss3
@@ -19,3 +38,10 @@ parts:
     - libuuid1
     - libxss1
     - libxtst6
+  
+  electron-launch:
+    plugin: dump
+    source: .
+    override-build: |
+      snapcraftctl build
+      chmod +x bin/electron-launch
